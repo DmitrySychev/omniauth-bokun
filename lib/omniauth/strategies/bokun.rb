@@ -4,28 +4,28 @@ module OmniAuth
   module Strategies
     class Bokun < OmniAuth::Strategies::OAuth2
       option :name, "bokun"
-      option :client_options, {
-        :site => 'https://bokun.io',
-        # bokun urls are dynamic based on the app name, need to figure this out 
-        :authorize_url => '/appstore/oauth/authorize',
-        :token_url => '/appstore/oauth/access_token'
-      }
+      option :scope, 'BOOKINGS_READ,BOOKINGS_WRITE,CUSTOMERS_READ,CUSTOMERS_WRITE'
 
-      def request_phase
-        super
+      option :client_options, \
+        site: 'https://bokun.io',
+        authorize_url: '/appstore/oauth/authorize',
+        token_url: '/appstore/oauth/access_token'
+      # bokun urls are dynamic based on the app name, need to figure this out
+
+
+      uid { raw_info['eid'] }
+
+      info do
+        raw_info
       end
 
-      def authorize_params
-        super.tap do |params|
-          %w[scope client_options].each do |v|
-            if request.params[v]
-              params[v.to_sym] = request.params[v]
-            end
-          end
-        end
+      def raw_info
+        @raw_info ||= access_token.get('/api/v1/user/get').parsed['results']
       end
 
-      uid { raw_info['id'].to_s }
+      def callback_url
+        options[:callback_url]
+      end
 
       def verify_hmac(params)
         # Remove hmac from params for verification
