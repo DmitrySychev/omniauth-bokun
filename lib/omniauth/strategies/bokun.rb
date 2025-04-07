@@ -36,8 +36,9 @@ module OmniAuth
       end
 
       def client
-        domain = request.params['domain']
-        options.client_options[:site] = "https://#{domain}.bokuntest.com"
+        options.client_options.merge!(
+          site: "https://#{subdomain}.#{domain}"
+        )
         super
       end
 
@@ -77,6 +78,31 @@ module OmniAuth
 
       def authorization_code
         @authorization_code ||= request.params['code']
+      end
+
+      def session
+        @session ||= request.session
+      end
+
+      def origin_host
+        raw_origin = request.env['omniauth.origin'] || session['omniauth.origin']
+        @origin_host ||= URI.parse(raw_origin.to_s).host
+      rescue URI::InvalidURIError, NoMethodError
+        nil
+      end
+
+      def domain
+        @domain ||=
+          if origin_host&.include?('bokuntest.com')
+            'bokuntest.com'
+          else
+            'bokun.io'
+          end
+      end
+
+      def subdomain
+        # Yes, Bokun did not name their subdomain param properply. We can work with it :)
+        @subdomain ||= request.params['domain']
       end
     end
   end
