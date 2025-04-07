@@ -25,7 +25,8 @@ module OmniAuth
 
       info do
         {
-          name: access_token.params['appInstalledByUserName'],
+          first_name: access_token.params['appInstalledByUserFirstName'],
+          last_name: access_token.params['appInstalledByUserLastName'],
           email: access_token.params['appInstalledByUserEmail'],
           vendor_id: access_token.params['vendor_id'],
           scope: access_token.params['scope']
