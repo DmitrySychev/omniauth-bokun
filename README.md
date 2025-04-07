@@ -20,10 +20,25 @@ Or install it yourself as:
 
 ## Usage
 
-```
+The gem expect three environment variables to be set:
+- `BOKUN_ID`: Your Bokun application API key (Client ID)
+- `BOKUN_SECRET`: Your Bokun application secret key (Client Secret)
+- `BOKUN_REDIRECT_DOMAIN`: The URL where Bokun will redirect after authentication. Since Bokun assigns a dynamic domain based on your company name, you need to set this in order for the callback to work.
+
+
+# If using without Devise
+``` ruby
 use OmniAuth::Builder do
-  provider :bokun, ENV['BOKUN_KEY'], ENV['BOKUN_SECRET']
+  provider :bokun, ENV['BOKUN_ID'], ENV['BOKUN_SECRET']
 end
+```
+
+# If using with Devise
+
+In your `config/initializers/devise.rb`, add the following:
+
+```ruby
+config.omniauth :bokun, ENV['BOKUN_ID'], ENV['BOKUN_SECRET']
 ```
 
 ## Development

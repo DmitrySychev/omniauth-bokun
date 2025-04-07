@@ -22,10 +22,12 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.files = Dir['lib/**/*.rb']
 
   spec.add_dependency 'omniauth', '~> 2.0'
   spec.add_dependency 'omniauth-oauth2', '~> 1.8'
   spec.add_development_dependency "bundler", "~> 2.5"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "debug", "~> 1.0" if RUBY_VERSION >= "3.1" # REMINDER TO REMOVE AFTER INITIAL DEV
 end
