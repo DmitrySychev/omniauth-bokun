@@ -2,8 +2,8 @@
 
 This is the unofficial OmniAuth strategy for authenticating to Bokun. To use it, you'll need to sign up for Bokun account and set up an application in their developer portal to get your API key and secret.
 
-[Bokun.io](https://www.bokun.io/)
-[Bokun Developer Portal](https://bokun.dev/)
+* [Bokun.io](https://www.bokun.io/)
+* [Bokun Developer Portal](https://bokun.dev/)
 
 
 * This is an in development version of the gem, and it may not be fully functional yet.
