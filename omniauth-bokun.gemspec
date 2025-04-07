@@ -12,6 +12,9 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{unofficial omniauth strategy for Bokun}
   spec.description   = "An unofficial OmniAuth strategy for Bokun, allowing authentication via Bokun's OAuth2 API."
   spec.homepage      = "https://github.com/DmitrySychev/omniauth-bokun"
+  spec.metadata    = {
+      "source_code_uri" => "https://github.com/DmitrySychev/omniauth-bokun",
+    }
   spec.license       = "MIT"
 
   # Specify which files should be added to the gem when it is released.
